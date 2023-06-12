@@ -40,7 +40,7 @@ public class UIManager
         }
     }
 
-    public T ShowSceneUI<T>(string prefabName = null) where T : UI_Popup
+    public T ShowSceneUI<T>(string prefabName = null) where T : UI_Scene
     {
         if (string.IsNullOrEmpty(prefabName))
             prefabName = typeof(T).Name;
