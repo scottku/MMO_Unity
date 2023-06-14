@@ -6,7 +6,7 @@ using UnityEngine;
 public class UIManager
 {
     int _order = 10; // canvas의 sort order 관리용
-    
+
     Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
     UI_Scene _sceneUI = null;
 
@@ -29,7 +29,7 @@ public class UIManager
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true;
 
-        if(sort)
+        if (sort)
         {
             canvas.sortingOrder = _order;
             _order++;
@@ -38,6 +38,19 @@ public class UIManager
         {
             canvas.sortingOrder = 0;
         }
+    }
+
+    public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UI_Base
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
+
+        GameObject go = Managers.Resource.Instantiate($"UI/SubItem/{name}");
+
+        if (parent != null)
+            go.transform.SetParent(parent);
+
+        return Util.GetOrAddComponent<T>(go);
     }
 
     public T ShowSceneUI<T>(string prefabName = null) where T : UI_Scene
